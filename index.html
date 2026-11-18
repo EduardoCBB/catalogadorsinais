@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Catalogador Profissional de Sinais - Opções Binárias & Ativos Reais</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-container">
+        <!-- Sidebar / Brand Header -->
+        <header class="main-header">
+            <div class="logo-area">
+                <svg class="logo-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <div class="logo-text">
+                    <h1>QUANTUM<span>CATALOG</span></h1>
+                    <p>Sinais de Alta Assertividade</p>
+                </div>
+            </div>
+            <div class="presets-container">
+                <span class="section-label">Presets</span>
+                <div class="presets-list" id="presetsList">
+                    <!-- Dynamic presets will load here -->
+                    <button class="preset-tag" data-preset="m1-12d">M1 - 12d</button>
+                    <button class="preset-tag" data-preset="m5-10d">M5 - 10d</button>
+                    <button class="preset-tag" data-preset="m15-7d">M15 - 7d</button>
+                    <button class="btn-save-preset" id="btnSavePreset">
+                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <line x1="12" y1="5" x2="12" y2="19"></line>
+                            <line x1="5" y1="12" x2="19" y2="12"></line>
+                        </svg>
+                        Salvar
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <main class="app-content">
+            <!-- Left Column: Filters Panel -->
+            <section class="filters-panel glass-card">
+                <!-- Timeframe Selection -->
+                <div class="filter-group">
+                    <span class="group-title">Timeframe <i class="info-icon" title="Tempo de expiração da vela">?</i></span>
+                    <div class="radio-btn-group timeframe-group" id="timeframeGroup">
+                        <button class="btn-toggle" data-value="M1">M1</button>
+                        <button class="btn-toggle" data-value="M2">M2</button>
+                        <button class="btn-toggle active" data-value="M1+">M1+</button>
+                        <button class="btn-toggle" data-value="M5">M5</button>
+                        <button class="btn-toggle" data-value="M15">M15</button>
+                        <button class="btn-toggle" data-value="M30">M30</button>
+                    </div>
+                </div>
+
+                <!-- Direction and Asset Row -->
+                <div class="filter-row">
+                    <div class="filter-group flex-1">
+                        <span class="group-title">Direção <i class="info-icon" title="Sentido da operação">?</i></span>
+                        <div class="radio-btn-group direction-group" id="directionGroup">
+                            <button class="btn-toggle" data-value="PUT">PUT</button>
+                            <button class="btn-toggle active" data-value="CALL">CALL</button>
+                            <button class="btn-toggle" data-value="CALL/PUT">CALL/PUT</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-group flex-1">
+                        <span class="group-title">Selecionar ativos <i class="info-icon" title="Pares de moedas para analisar">?</i></span>
+                        <div class="custom-multiselect" id="assetsSelectContainer">
+                            <div class="selected-tags" id="selectedAssets">
+                                <span class="asset-tag-pill" data-asset="EUR/GBP">
+                                    EUR/GBP
+                                    <span class="remove-tag">&times;</span>
+                                </span>
+                            </div>
+                            <button class="btn-dropdown-trigger" id="btnAssetDropdown">
+                                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                    <polyline points="6 9 12 15 18 9"></polyline>
+                                </svg>
+                            </button>
+                            <div class="dropdown-list hidden" id="assetsDropdownList">
+                                <div class="dropdown-tools-sticky">
+                                    <input type="text" id="assetSearchInput" placeholder="🔍 Pesquisar ativo..." class="dropdown-search-input">
+                                    <div class="dropdown-actions-row">
+                                        <button type="button" id="btnSelectAllAssets" class="btn-action-sm">Marcar Todos</button>
+                                        <button type="button" id="btnClearAllAssets" class="btn-action-sm">Desmarcar Todos</button>
+                                    </div>
+                                </div>
+
+                                <!-- FOREX (MERCADO ABERTO REAL) -->
+                                <div class="dropdown-category-header">Forex (Mercado Aberto)</div>
+                                <div class="dropdown-item selected" data-value="EUR/GBP">EUR/GBP</div>
+                                <div class="dropdown-item" data-value="EUR/USD">EUR/USD</div>
+                                <div class="dropdown-item" data-value="GBP/USD">GBP/USD</div>
+                                <div class="dropdown-item" data-value="USD/JPY">USD/JPY</div>
+                                <div class="dropdown-item" data-value="AUD/USD">AUD/USD</div>
+                                <div class="dropdown-item" data-value="USD/CAD">USD/CAD</div>
+                                <div class="dropdown-item" data-value="USD/CHF">USD/CHF</div>
+                                <div class="dropdown-item" data-value="NZD/USD">NZD/USD</div>
+                                <div class="dropdown-item" data-value="EUR/JPY">EUR/JPY</div>
+                                <div class="dropdown-item" data-value="GBP/JPY">GBP/JPY</div>
+                                <div class="dropdown-item" data-value="AUD/JPY">AUD/JPY</div>
+                                <div class="dropdown-item" data-value="EUR/AUD">EUR/AUD</div>
+                                <div class="dropdown-item" data-value="EUR/CAD">EUR/CAD</div>
+                                <div class="dropdown-item" data-value="EUR/CHF">EUR/CHF</div>
+                                <div class="dropdown-item" data-value="GBP/CHF">GBP/CHF</div>
+                                <div class="dropdown-item" data-value="GBP/AUD">GBP/AUD</div>
+                                <div class="dropdown-item" data-value="GBP/CAD">GBP/CAD</div>
+                                <div class="dropdown-item" data-value="AUD/CAD">AUD/CAD</div>
+                                <div class="dropdown-item" data-value="CHF/JPY">CHF/JPY</div>
+                                <div class="dropdown-item" data-value="CAD/CHF">CAD/CHF</div>
+                                <div class="dropdown-item" data-value="AUD/CHF">AUD/CHF</div>
+                                <div class="dropdown-item" data-value="NZD/JPY">NZD/JPY</div>
+                                <div class="dropdown-item" data-value="NZD/CAD">NZD/CAD</div>
+                                <div class="dropdown-item" data-value="NZD/CHF">NZD/CHF</div>
+                                <div class="dropdown-item" data-value="EUR/NZD">EUR/NZD</div>
+                                <div class="dropdown-item" data-value="GBP/NZD">GBP/NZD</div>
+                                <div class="dropdown-item" data-value="CAD/JPY">CAD/JPY</div>
+                                <div class="dropdown-item" data-value="USD/SGD">USD/SGD</div>
+                                <div class="dropdown-item" data-value="USD/MXN">USD/MXN</div>
+                                <div class="dropdown-item" data-value="USD/ZAR">USD/ZAR</div>
+                                <div class="dropdown-item" data-value="USD/TRY">USD/TRY</div>
+                                <div class="dropdown-item" data-value="USD/NOK">USD/NOK</div>
+                                <div class="dropdown-item" data-value="USD/SEK">USD/SEK</div>
+                                <div class="dropdown-item" data-value="USD/PLN">USD/PLN</div>
+                                <div class="dropdown-item" data-value="USD/HKD">USD/HKD</div>
+                                <div class="dropdown-item" data-value="EUR/NOK">EUR/NOK</div>
+                                <div class="dropdown-item" data-value="EUR/SEK">EUR/SEK</div>
+                                <div class="dropdown-item" data-value="EUR/PLN">EUR/PLN</div>
+                                <div class="dropdown-item" data-value="EUR/TRY">EUR/TRY</div>
+                                <div class="dropdown-item" data-value="GBP/NOK">GBP/NOK</div>
+                                <div class="dropdown-item" data-value="GBP/SEK">GBP/SEK</div>
+                                
+                                <!-- FOREX OTC -->
+                                <div class="dropdown-category-header">Forex OTC</div>
+                                <div class="dropdown-item" data-value="EUR/USD-OTC">EUR/USD-OTC</div>
+                                <div class="dropdown-item" data-value="GBP/USD-OTC">GBP/USD-OTC</div>
+                                <div class="dropdown-item" data-value="USD/JPY-OTC">USD/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="EUR/GBP-OTC">EUR/GBP-OTC</div>
+                                <div class="dropdown-item" data-value="AUD/USD-OTC">AUD/USD-OTC</div>
+                                <div class="dropdown-item" data-value="USD/CAD-OTC">USD/CAD-OTC</div>
+                                <div class="dropdown-item" data-value="USD/CHF-OTC">USD/CHF-OTC</div>
+                                <div class="dropdown-item" data-value="NZD/USD-OTC">NZD/USD-OTC</div>
+                                <div class="dropdown-item" data-value="EUR/JPY-OTC">EUR/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="GBP/JPY-OTC">GBP/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="AUD/JPY-OTC">AUD/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="AUD/CAD-OTC">AUD/CAD-OTC</div>
+                                <div class="dropdown-item" data-value="AUD/CHF-OTC">AUD/CHF-OTC</div>
+                                <div class="dropdown-item" data-value="CAD/CHF-OTC">CAD/CHF-OTC</div>
+                                <div class="dropdown-item" data-value="EUR/AUD-OTC">EUR/AUD-OTC</div>
+                                <div class="dropdown-item" data-value="EUR/CAD-OTC">EUR/CAD-OTC</div>
+                                <div class="dropdown-item" data-value="EUR/CHF-OTC">EUR/CHF-OTC</div>
+                                <div class="dropdown-item" data-value="GBP/AUD-OTC">GBP/AUD-OTC</div>
+                                <div class="dropdown-item" data-value="GBP/CAD-OTC">GBP/CAD-OTC</div>
+                                <div class="dropdown-item" data-value="GBP/CHF-OTC">GBP/CHF-OTC</div>
+                                <div class="dropdown-item" data-value="CAD/JPY-OTC">CAD/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="CHF/JPY-OTC">CHF/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="EUR/NZD-OTC">EUR/NZD-OTC</div>
+                                <div class="dropdown-item" data-value="GBP/NZD-OTC">GBP/NZD-OTC</div>
+                                <div class="dropdown-item" data-value="NZD/CAD-OTC">NZD/CAD-OTC</div>
+                                <div class="dropdown-item" data-value="NZD/CHF-OTC">NZD/CHF-OTC</div>
+                                <div class="dropdown-item" data-value="NZD/JPY-OTC">NZD/JPY-OTC</div>
+                                <div class="dropdown-item" data-value="USD/NOK-OTC">USD/NOK-OTC</div>
+                                <div class="dropdown-item" data-value="USD/SEK-OTC">USD/SEK-OTC</div>
+                                <div class="dropdown-item" data-value="USD/MXN-OTC">USD/MXN-OTC</div>
+                                <div class="dropdown-item" data-value="USD/SGD-OTC">USD/SGD-OTC</div>
+                                <div class="dropdown-item" data-value="USD/ZAR-OTC">USD/ZAR-OTC</div>
+                                <div class="dropdown-item" data-value="USD/TRY-OTC">USD/TRY-OTC</div>
+                                
+                                <!-- AÇÕES REAL -->
+                                <div class="dropdown-category-header">Ações (Real)</div>
+                                <div class="dropdown-item" data-value="AAPL">Apple (AAPL)</div>
+                                <div class="dropdown-item" data-value="GOOG">Google (GOOG)</div>
+                                <div class="dropdown-item" data-value="AMZN">Amazon (AMZN)</div>
+                                <div class="dropdown-item" data-value="MSFT">Microsoft (MSFT)</div>
+                                <div class="dropdown-item" data-value="TSLA">Tesla (TSLA)</div>
+                                <div class="dropdown-item" data-value="META">Meta (META)</div>
+                                <div class="dropdown-item" data-value="NFLX">Netflix (NFLX)</div>
+                                <div class="dropdown-item" data-value="NVDA">Nvidia (NVDA)</div>
+                                <div class="dropdown-item" data-value="BABA">Alibaba (BABA)</div>
+                                <div class="dropdown-item" data-value="DIS">Disney (DIS)</div>
+                                <div class="dropdown-item" data-value="PYPL">PayPal (PYPL)</div>
+                                <div class="dropdown-item" data-value="INTC">Intel (INTC)</div>
+                                <div class="dropdown-item" data-value="AMD">AMD (AMD)</div>
+                                <div class="dropdown-item" data-value="PFE">Pfizer (PFE)</div>
+                                <div class="dropdown-item" data-value="JNJ">Johnson & Johnson (JNJ)</div>
+                                <div class="dropdown-item" data-value="KO">Coca-Cola (KO)</div>
+                                <div class="dropdown-item" data-value="PEP">PepsiCo (PEP)</div>
+                                <div class="dropdown-item" data-value="BA">Boeing (BA)</div>
+                                <div class="dropdown-item" data-value="NKE">Nike (NKE)</div>
+                                <div class="dropdown-item" data-value="UBER">Uber (UBER)</div>
+                                <div class="dropdown-item" data-value="SPOT">Spotify (SPOT)</div>
+
+                                <!-- AÇÕES OTC -->
+                                <div class="dropdown-category-header">Ações OTC</div>
+                                <div class="dropdown-item" data-value="AAPL-OTC">Apple (AAPL-OTC)</div>
+                                <div class="dropdown-item" data-value="GOOG-OTC">Google (GOOG-OTC)</div>
+                                <div class="dropdown-item" data-value="AMZN-OTC">Amazon (AMZN-OTC)</div>
+                                <div class="dropdown-item" data-value="MSFT-OTC">Microsoft (MSFT-OTC)</div>
+                                <div class="dropdown-item" data-value="TSLA-OTC">Tesla (TSLA-OTC)</div>
+                                <div class="dropdown-item" data-value="META-OTC">Meta (META-OTC)</div>
+                                <div class="dropdown-item" data-value="NFLX-OTC">Netflix (NFLX-OTC)</div>
+                                <div class="dropdown-item" data-value="NVDA-OTC">Nvidia (NVDA-OTC)</div>
+                                <div class="dropdown-item" data-value="BABA-OTC">Alibaba (BABA-OTC)</div>
+                                <div class="dropdown-item" data-value="DIS-OTC">Disney (DIS-OTC)</div>
+                                <div class="dropdown-item" data-value="PYPL-OTC">PayPal (PYPL-OTC)</div>
+                                <div class="dropdown-item" data-value="INTC-OTC">Intel (INTC-OTC)</div>
+                                <div class="dropdown-item" data-value="AMD-OTC">AMD (AMD-OTC)</div>
+                                <div class="dropdown-item" data-value="PFE-OTC">Pfizer (PFE-OTC)</div>
+                                <div class="dropdown-item" data-value="JNJ-OTC">Johnson & Johnson (JNJ-OTC)</div>
+                                <div class="dropdown-item" data-value="KO-OTC">Coca-Cola (KO-OTC)</div>
+                                <div class="dropdown-item" data-value="PEP-OTC">PepsiCo (PEP-OTC)</div>
+                                <div class="dropdown-item" data-value="BA-OTC">Boeing (BA-OTC)</div>
+                                <div class="dropdown-item" data-value="NKE-OTC">Nike (NKE-OTC)</div>
+                                <div class="dropdown-item" data-value="UBER-OTC">Uber (UBER-OTC)</div>
+                                <div class="dropdown-item" data-value="SPOT-OTC">Spotify (SPOT-OTC)</div>
+                                
+                                <!-- CRIPTOMOEDAS -->
+                                <div class="dropdown-category-header">Criptomoedas (Real & OTC)</div>
+                                <div class="dropdown-item" data-value="BTC/USD">BTC/USD (Bitcoin)</div>
+                                <div class="dropdown-item" data-value="ETH/USD">ETH/USD (Ethereum)</div>
+                                <div class="dropdown-item" data-value="LTC/USD">LTC/USD (Litecoin)</div>
+                                <div class="dropdown-item" data-value="XRP/USD">XRP/USD (Ripple)</div>
+                                <div class="dropdown-item" data-value="EOS/USD">EOS/USD (EOS)</div>
+                                <div class="dropdown-item" data-value="BCH/USD">BCH/USD (Bitcoin Cash)</div>
+                                <div class="dropdown-item" data-value="TRX/USD">TRX/USD (TRON)</div>
+                                <div class="dropdown-item" data-value="ADA/USD">ADA/USD (Cardano)</div>
+                                <div class="dropdown-item" data-value="DOT/USD">DOT/USD (Polkadot)</div>
+                                <div class="dropdown-item" data-value="SOL/USD">SOL/USD (Solana)</div>
+                                <div class="dropdown-item" data-value="DOGE/USD">DOGE/USD (Dogecoin)</div>
+                                <div class="dropdown-item" data-value="AVAX/USD">AVAX/USD (Avalanche)</div>
+                                <div class="dropdown-item" data-value="LINK/USD">LINK/USD (Chainlink)</div>
+                                <div class="dropdown-item" data-value="SHIB/USD">SHIB/USD (Shiba Inu)</div>
+                                <div class="dropdown-item" data-value="BTC/USD-OTC">BTC/USD-OTC</div>
+                                <div class="dropdown-item" data-value="ETH/USD-OTC">ETH/USD-OTC</div>
+                                <div class="dropdown-item" data-value="LTC/USD-OTC">LTC/USD-OTC</div>
+                                <div class="dropdown-item" data-value="XRP/USD-OTC">XRP/USD-OTC</div>
+                                
+                                <!-- COMMODITIES -->
+                                <div class="dropdown-category-header">Commodities (Real & OTC)</div>
+                                <div class="dropdown-item" data-value="Gold">Gold (XAU/USD - Ouro)</div>
+                                <div class="dropdown-item" data-value="Silver">Silver (XAG/USD - Prata)</div>
+                                <div class="dropdown-item" data-value="CrudeOil">Crude Oil (WTI)</div>
+                                <div class="dropdown-item" data-value="Brent">Brent Oil</div>
+                                <div class="dropdown-item" data-value="NaturalGas">Natural Gas</div>
+                                <div class="dropdown-item" data-value="Platinum">Platinum</div>
+                                <div class="dropdown-item" data-value="Gold-OTC">Gold-OTC</div>
+                                <div class="dropdown-item" data-value="Silver-OTC">Silver-OTC</div>
+                                <div class="dropdown-item" data-value="CrudeOil-OTC">CrudeOil-OTC</div>
+                                <div class="dropdown-item" data-value="Brent-OTC">Brent-OTC</div>
+
+                                <!-- ÍNDICES -->
+                                <div class="dropdown-category-header">Índices (Real & OTC)</div>
+                                <div class="dropdown-item" data-value="US30">US30 (Dow Jones)</div>
+                                <div class="dropdown-item" data-value="US500">US500 (S&P 500)</div>
+                                <div class="dropdown-item" data-value="NAS100">NAS100 (Nasdaq)</div>
+                                <div class="dropdown-item" data-value="GER40">GER40 (DAX Alemanha)</div>
+                                <div class="dropdown-item" data-value="UK100">UK100 (FTSE Reino Unido)</div>
+                                <div class="dropdown-item" data-value="FRA40">FRA40 (CAC França)</div>
+                                <div class="dropdown-item" data-value="JPN225">JPN225 (Nikkei Japão)</div>
+                                <div class="dropdown-item" data-value="AUS200">AUS200 (ASX Austrália)</div>
+                                <div class="dropdown-item" data-value="US30-OTC">US30-OTC</div>
+                                <div class="dropdown-item" data-value="US500-OTC">US500-OTC</div>
+                                <div class="dropdown-item" data-value="NAS100-OTC">NAS100-OTC</div>
+                                <div class="dropdown-item" data-value="GER40-OTC">GER40-OTC</div>
+                                <div class="dropdown-item" data-value="JPN225-OTC">JPN225-OTC</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Estratégia de Catalogação -->
+                <div class="filter-group">
+                    <span class="group-title">Estratégia <i class="info-icon" title="Algoritmo de análise técnica baseado em estratégias famosas">?</i></span>
+                    <div class="custom-select-wrapper">
+                        <select id="estrategiaSelect" class="form-input custom-select">
+                            <option value="trend_following" selected>Seguir Tendência (Dual SMA 7/21 + Momentum)</option>
+                            <option value="price_action">Price Action (Pin Bar & Engolfo)</option>
+                            <option value="breakout">Rompimento (Breakout Trading)</option>
+                            <option value="mean_reversion">Reversão à Média (Bollinger + RSI)</option>
+                            <option value="pullback">Retração em Tendência (Pullback)</option>
+                            <option value="mhi_minoria">MHI (Minoria - Reversão de Cores)</option>
+                            <option value="mhi_maioria">MHI (Maioria - Tendência de Cores)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <!-- Parameters: Porcentagem, Dias, Martingale -->
+                <div class="filter-row-three">
+                    <div class="filter-group">
+                        <span class="group-title">Porcentagem <i class="info-icon" title="Assertividade mínima aceitável">?</i></span>
+                        <div class="custom-select-wrapper">
+                            <select id="porcentagemSelect" class="form-input custom-select">
+                                <option value="100" selected>100%</option>
+                                <option value="95">95%</option>
+                                <option value="90">90%</option>
+                                <option value="85">85%</option>
+                                <option value="80">80%</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <span class="group-title">Dias <i class="info-icon" title="Período de dias para análise histórica">?</i></span>
+                        <div class="custom-select-wrapper">
+                            <select id="diasSelect" class="form-input custom-select">
+                                <option value="30">30 dias</option>
+                                <option value="25" selected>25 dias</option>
+                                <option value="15">15 dias</option>
+                                <option value="10">10 dias</option>
+                                <option value="7">7 dias</option>
+                                <option value="3">3 dias</option>
+                                <option value="1">1 dia</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="filter-group">
+                        <span class="group-title">Martingale <i class="info-icon" title="Quantidade máxima de recuperações (Gales)">?</i></span>
+                        <div class="custom-select-wrapper">
+                            <select id="martingaleSelect" class="form-input custom-select">
+                                <option value="0">Sem Gale (0)</option>
+                                <option value="1">1 Gale</option>
+                                <option value="2">2 Gales</option>
+                                <option value="3">3 Gales</option>
+                                <option value="4" selected>4 Gales</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Interval Section -->
+                <div class="filter-group">
+                    <span class="group-title">Intervalo <i class="info-icon" title="Período horário para gerar sinais">?</i></span>
+                    <div class="time-range-inputs">
+                        <div class="time-input-block">
+                            <span class="time-label">Início</span>
+                            <div class="time-fields">
+                                <input type="number" id="startHour" min="0" max="23" value="18" class="time-box">
+                                <span class="time-sep">:</span>
+                                <input type="number" id="startMinute" min="0" max="59" value="01" class="time-box">
+                            </div>
+                        </div>
+                        <span class="range-sep">Até</span>
+                        <div class="time-input-block">
+                            <span class="time-label">Fim</span>
+                            <div class="time-fields">
+                                <input type="number" id="endHour" min="0" max="23" value="18" class="time-box">
+                                <span class="time-sep">:</span>
+                                <input type="number" id="endMinute" min="0" max="59" value="50" class="time-box">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Additional Filters Checkboxes -->
+                <div class="filter-group">
+                    <span class="group-title">Filtros Adicionais <i class="info-icon" title="Condições de catalogação específicas">?</i></span>
+                    <div class="checkbox-grid">
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chkOtc" checked>
+                            <span class="checkmark"></span>
+                            Lista OTC
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chkRemoveEquals" checked>
+                            <span class="checkmark"></span>
+                            Remover horários iguais
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chkIgnoreToday" checked>
+                            <span class="checkmark"></span>
+                            Ignorar dia Atual
+                        </label>
+                        <label class="custom-checkbox">
+                            <input type="checkbox" id="chkNextDay">
+                            <span class="checkmark"></span>
+                            Próximo dia
+                        </label>
+                    </div>
+                </div>
+
+                <!-- News Filter Switch -->
+                <div class="filter-group">
+                    <div class="news-header">
+                        <span class="group-title">Filtrar Notícias <i class="info-icon" title="Evitar sinais próximos a notícias de forte impacto econômico">?</i></span>
+                        <label class="switch-container">
+                            <input type="checkbox" id="newsSwitch">
+                            <span class="switch-slider"></span>
+                        </label>
+                    </div>
+                    <div class="news-config hidden" id="newsConfigArea">
+                        <div class="news-options">
+                            <span class="sub-label">Evitar impacto de:</span>
+                            <div class="impact-levels">
+                                <button class="btn-impact active" data-impact="1">1 Touro</button>
+                                <button class="btn-impact active" data-impact="2">2 Touros</button>
+                                <button class="btn-impact active" data-impact="3">3 Touros</button>
+                            </div>
+                        </div>
+                        <div class="news-options">
+                            <span class="sub-label">Minutos antes/depois:</span>
+                            <input type="number" id="newsMinutes" class="form-input inline-input" value="20" min="5" max="60">
+                            <span class="input-suffix">min</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Big Start Button -->
+                <button class="btn-start" id="btnStart">
+                    <svg class="play-icon" width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                    </svg>
+                    <span>START</span>
+                    <span class="btn-badge" id="signalsCountBadge">30</span>
+                </button>
+            </section>
+
+            <!-- Right Column: Results & Analytics -->
+            <section class="results-panel">
+                <!-- Quick Stats Dashboard -->
+                <div class="stats-dashboard">
+                    <div class="stat-card glass-card accent-green">
+                        <div class="stat-icon">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-value" id="statAssertividade">100%</span>
+                            <span class="stat-label">Assertividade Média</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon text-cyan">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+                            </svg>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-value" id="statTotalSinais">30</span>
+                            <span class="stat-label">Sinais Gerados</span>
+                        </div>
+                    </div>
+
+                    <div class="stat-card glass-card">
+                        <div class="stat-icon text-orange">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                                <polyline points="17 6 23 6 23 12"></polyline>
+                            </svg>
+                        </div>
+                        <div class="stat-data">
+                            <span class="stat-value" id="statGaleDistribution">60% / 30% / 10%</span>
+                            <span class="stat-label">Direto / G1 / G2+</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Signals Output Container -->
+                <div class="results-card glass-card">
+                    <div class="results-tabs">
+                        <button class="tab-btn active" id="tabSignals">Lista de Sinais</button>
+                        <button class="tab-btn" id="tabAudit">Auditoria Pós-Operação</button>
+                    </div>
+
+                    <!-- TAB 1: SIGNALS LIST -->
+                    <div id="signalsTabContent" class="tab-content">
+                        <div class="results-header">
+                            <div class="header-left">
+                                <p id="catalogDescription">Catalogação de 25 dias históricos para EUR/GBP no timeframe M1+</p>
+                            </div>
+                            <div class="header-actions">
+                                <button class="btn-secondary" id="btnCopyText">
+                                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                                    </svg>
+                                    Copiar Lista
+                                </button>
+                                <button class="btn-secondary" id="btnExportCsv">
+                                    Exportar CSV
+                                </button>
+                            </div>
+                        </div>
+
+                        <!-- Signals Table/List -->
+                        <div class="signals-list-wrapper">
+                            <table class="signals-table">
+                                <thead>
+                                    <tr>
+                                        <th>Horário</th>
+                                        <th>Ativo</th>
+                                        <th>Timeframe</th>
+                                        <th>Direção</th>
+                                        <th>Assertividade</th>
+                                        <th>Gale Recomendado</th>
+                                        <th>Detalhes</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="signalsTableBody">
+                                    <!-- Signals dynamically inserted here -->
+                                </tbody>
+                            </table>
+                            <div id="noSignalsMessage" class="no-data-message hidden">
+                                Nenhum sinal encontrado com os filtros atuais. Experimente reduzir a taxa de assertividade ou aumentar os ativos.
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- TAB 2: POST-OPERATION AUDIT -->
+                    <div id="auditTabContent" class="tab-content hidden">
+                        <!-- Import Area for Pasted Signals -->
+                        <div class="audit-import-area">
+                            <span class="group-title">Importar Lista de Sinais Externa</span>
+                            <div class="import-controls">
+                                <textarea id="pastedSignals" placeholder="Cole seus sinais aqui no padrão: TF;Ativo;Horário;Direção&#10;Exemplo:&#10;M1;EURGBP-OTC;18:11;CALL&#10;M5;EURUSD;18:30;PUT" class="form-input paste-textarea"></textarea>
+                                <button class="btn-secondary" id="btnLoadPasted">Carregar e Auditar</button>
+                            </div>
+                        </div>
+
+                        <!-- Audit Config Bar -->
+                        <div class="audit-config-bar">
+                            <div class="audit-input-group">
+                                <label for="inputEntryValue">Entrada ($)</label>
+                                <input type="number" id="inputEntryValue" value="10" min="1" class="form-input audit-input">
+                            </div>
+                            <div class="audit-input-group">
+                                <label for="inputPayout">Payout (%)</label>
+                                <input type="number" id="inputPayout" value="86" min="1" max="100" class="form-input audit-input">
+                            </div>
+                            <div class="audit-input-group">
+                                <label for="inputGaleMult">Mult. Gale</label>
+                                <input type="number" id="inputGaleMult" value="2.0" step="0.1" min="1" class="form-input audit-input">
+                            </div>
+                            <button class="btn-primary-sm" id="btnReAudit">Recalcular Auditoria</button>
+                        </div>
+
+                        <!-- Audit Financial Summary Dashboard -->
+                        <div class="audit-stats-grid">
+                            <div class="audit-stat-card card-win">
+                                <span class="audit-stat-title">Resultado Líquido</span>
+                                <span class="audit-stat-val text-green" id="auditNetResult">+$0.00</span>
+                            </div>
+                            <div class="audit-stat-card">
+                                <span class="audit-stat-title">Placar Geral</span>
+                                <span class="audit-stat-val" id="auditScore">0 W - 0 L</span>
+                            </div>
+                            <div class="audit-stat-card">
+                                <span class="audit-stat-title">Assertividade Real</span>
+                                <span class="audit-stat-val text-cyan" id="auditRealAssert">0%</span>
+                            </div>
+                        </div>
+
+                        <!-- Audit Results Table -->
+                        <div class="signals-list-wrapper">
+                            <table class="signals-table">
+                                <thead>
+                                    <tr>
+                                        <th>Horário</th>
+                                        <th>Ativo</th>
+                                        <th>Timeframe</th>
+                                        <th>Direção</th>
+                                        <th>Resultado</th>
+                                        <th>Velas Utilizadas</th>
+                                        <th>Saldo ($)</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="auditTableBody">
+                                    <!-- Audit rows dynamically inserted here -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <!-- Notification Toast -->
+    <div class="toast hidden" id="copyToast">
+        Lista de sinais copiada com sucesso!
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
